@@ -1,0 +1,437 @@
+@mixin mobile {
+  @media screen and (max-width:480px){
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width:480px){
+    @content;
+  }
+}
+@mixin laptop{
+  @media screen and (max-width:480px){
+    @content;
+  }
+}
+
+
+body{
+  margin:0;
+  // padding:0
+  background-color: rgb(123, 163, 193);
+}
+
+.formContainer{
+  background-color: rgb(123, 163, 193);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .formWrapper{
+    background-color: aquamarine;
+    padding: 2em 2em;
+    // width: 20%;
+    border-radius: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:1em;
+
+    .logo{
+      font-size: 2em;
+    }
+    .title{
+      font-size: 1.2em;
+    }
+
+    form{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap:1em;
+
+      input{
+        padding:0.5em;
+        border-radius: 0.5em;
+        text-align: center;
+        // width: 90%;
+        border: none;
+        border-bottom: 1px solid rgb(123, 163, 193);
+        &::placeholder{
+          color: rgb(175,175,175);
+        }
+        &:focus{
+          // background-color: rgb(182, 185, 187);
+          // color: black;
+          // &::placeholder{
+          //   color:black
+          // }
+          
+        }
+      }
+
+      button{
+        padding:0.5em;
+        border-radius: 0.5em;
+        text-align: center;
+        width: 50%;
+        align-self: center;
+        color:white;
+        font-weight: 700;
+        cursor: pointer;
+        background-color: rgb(123, 163, 193);
+        border: none;
+        border-bottom: 1px solid rgb(123, 163, 193);
+
+        box-shadow: 1em black;
+
+        &:hover{
+          background-color: rgb(153, 182, 204);
+        }
+      }
+
+      label{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img{
+          height: 1.5em;
+          border-radius: 30%;
+          cursor: pointer;
+        }
+        #addImageLabel{
+          cursor:pointer;
+        }
+
+        span{
+          font-size: 1em;
+          margin-left: 0.4em;
+          text-decoration: none;
+          border-bottom: 1px solid rgb(123, 163, 193);
+          &:hover{
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    span, p{
+      cursor: default;
+    }
+    
+    .goto{
+      color:#5d5d8d;
+      cursor: pointer;
+      font-size: 1.1em;
+      &:hover{
+        color:black;
+        text-decoration:underline;
+      }
+    }
+
+  }
+}
+
+.home{
+  background-color: #a7bcff;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .home-container{
+    border: 1px solid white;
+    border-radius: 1em;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    overflow: hidden;
+
+    @include tablet(){
+      width: 90%;
+    }
+
+    .leftSidebar{
+      flex:1;
+      border-right: 1.5px solid white;
+      background-color:rgb(153, 182, 204);
+      position: relative;
+      
+      .leftSidebar-container{
+        margin: 0.5em;
+
+        .navbar{
+          display: flex;
+          align-items: center;
+          background-color:aliceblue ;
+          padding: .3em;
+          height: 2em;
+          border-radius: 0.5em;
+          justify-content: space-between;
+
+          .logo{
+            font-weight: bold;
+
+            @include tablet(){
+              display: none;
+            }
+          }
+
+          
+          .user{
+            display: flex;
+            gap:.6em;
+
+            img{
+              height: 1.5em;
+              width: 1.5em;
+              background-color: #5d5d8d;
+              border-radius: 30%;
+              object-fit: cover;
+            }
+
+            button{
+              background-color: #5d5d8d;
+              color:antiquewhite;
+              font-size: 0.6em;
+              cursor: pointer;
+              border-radius: 10%;
+              border:none;
+
+              @include tablet(){
+                position: absolute;
+                bottom: 1em;
+              }
+            }
+          }
+        }
+
+        .search{
+          border-bottom: 1px solid rgb(182, 120, 241);
+          
+          .searchForm{
+            padding: 0.7em;
+
+            input{
+              border:none;
+              background-color: transparent;
+              color:black;
+              outline: none;
+
+              &::placeholder{
+                color:lightgray;
+              }
+            }
+
+          }
+
+        }
+
+        // .chats{
+        //   overflow: scroll;
+         
+        // }
+
+        .userChat{
+          padding:0.7em;
+          display: flex;
+          align-items: center;
+          gap:1em;
+          cursor: pointer;
+
+          &:hover{
+            background-color: rgb(132, 162, 192);
+          }
+          
+          img{
+            width:2.5em;
+            height: 2.5em;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .userChatInfo{
+            span{
+              font-size: 1.2em;
+              font-weight: 500;
+            }
+            p{
+              font-size: 0.8em;
+              margin-top: 0;
+              margin-bottom:0 ;
+            }
+          }
+        }
+        
+
+      }
+    }
+
+    .chat{
+      flex:2;
+      margin: 0.5em;
+
+      .chatInfo{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        background-color:aliceblue;
+        padding: .3em;
+        height: 2em;
+        border-radius: 0.5em;
+        color:rgb(60, 60, 60);
+        
+        .chatIcons{
+          display: flex;
+          // gap:.6em;
+          gap:1em;
+
+          img{
+            height: 1em;
+            width: 1em;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .messages{
+        background-color: #ddddf7;
+        padding: 0.7em;
+        border-radius: 0.5em;
+        margin-top:0.5em;
+        margin-bottom:0.5em;
+        height: calc(100% - 7.6em);
+        overflow: scroll;
+
+        .message{
+          display: flex;
+          gap: 0.7em;
+          margin-bottom: 1em;
+
+          .messageInfo{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1em;
+            // justify-content: center;
+            color:gray;
+            font-weight: 300;
+
+
+            img{
+              width: 2em;
+              height: 2em;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+          }
+          .messageContent{
+            max-width: 70%;
+            display: flex;
+            flex-direction: column;
+            // gap: 0.7em;
+            
+            p{
+              border-radius: 0 0.3em 0.3em 0.3em;
+              background-color: white;
+              padding: 0.4em 0.8em;
+              max-width: max-content;
+              
+            }
+            img{
+              width: 50%;
+            }
+          }
+
+          &.owner{
+            flex-direction: row-reverse;
+
+            .messageContent{
+              align-items: flex-end;
+              p{
+                background-color: #8da4f1;
+                color:white;
+                border-radius: 0.3em 0 0.3em 0.3em;;
+              }
+            }
+
+          }
+        }
+      }
+
+      .inputArea{
+        height: 2em;
+        padding: 0.3em;
+        background-color: aliceblue;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-radius: 0.5em;
+
+        input{
+          width: 100%;
+          border:none;
+          outline: none;
+          color: #2f2d52;
+          font-size: 1.2em;
+          background-color: transparent;
+          padding: 0.33em;
+
+          &::placeholder{
+            color:gray;
+
+          }
+        }
+
+        .send{
+          margin-left: 0.7em;
+          padding-right:1em;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap:1em;
+          border:1px solid rgb(178, 178, 178);
+          padding:0.2em;
+          border-radius: 0.5em;
+
+          img{
+            height: 1.5em;
+            width: 1.5em;
+            cursor:pointer;
+          }
+
+          button{
+            border:none;
+            padding: 0.5em 0.8em;
+            border-radius: 0.4em;
+            background-color: #8da4f1;
+            color: whitesmoke;
+            cursor: pointer;
+          }
+
+
+        }
+      }
+
+    }
+
+    .rightSidebar{
+      flex:1;
+      border-right: 1.5px solid white;
+      background-color:rgb(153, 182, 204);
+      
+      .rightSidebar-container{
+        margin: 0.5em;
+      }
+    }
+  }
+
+  
+
+
+}
