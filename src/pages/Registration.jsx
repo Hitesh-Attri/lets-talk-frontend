@@ -176,7 +176,10 @@ export const Registration = () => {
           btn
         </button> */}
         <p>
-          Already have an account? <span className="goto">Login</span>
+          Already have an account?{" "}
+          <span className="goto" onClick={() => navigate("/")}>
+            Login
+          </span>
         </p>
       </div>
     </div>

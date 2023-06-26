@@ -8,6 +8,8 @@ export const Login = () => {
   const [warning1, setWarning1] = useState(false);
   const [warning2, setWarning2] = useState(false);
   const [dsable, setDsable] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -63,13 +65,26 @@ export const Login = () => {
           </span>
         )}
         <form onSubmit={handleLogin}>
-          <input type="text" placeholder="Username" />
-          <input type="password" placeholder="Password" />
+          <input type="text" placeholder="Username" value={email} />
+          <input type="password" placeholder="Password" value={password} />
           <button disabled={dsable}>{dsable ? "Please wait" : "login"}</button>
           {err && <span>Something Went Wrong!</span>}
+          <button
+            style={{ width: "fit-content" }}
+            onClick={(e) => {
+              e.preventDefault();
+              setEmail("guest123@gmail.com");
+              setPassword("123456");
+            }}
+          >
+            Get Guest Credentials
+          </button>
         </form>
         <p>
-          Don't have an account? <span className="goto">Sign Up</span>
+          Don't have an account?{" "}
+          <span className="goto" onClick={() => navigate("/register")}>
+            Sign Up
+          </span>
         </p>
       </div>
     </div>
