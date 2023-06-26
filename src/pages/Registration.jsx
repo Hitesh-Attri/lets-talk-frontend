@@ -161,7 +161,9 @@ export const Registration = () => {
           {selectedFile && (
             <img style={{ width: 50, height: 50 }} src={preview} />
           )}
-          <button disabled={false}>{dsable ? "Please wait" : "Sign Up"}</button>
+          <button disabled={dsable}>
+            {dsable ? "Please wait" : "Sign Up"}
+          </button>
           {err && <span>Something Went Wrong!</span>}
         </form>
         {/* <button
