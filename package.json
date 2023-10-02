@@ -11,21 +11,28 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.7.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@reduxjs/toolkit": "^1.9.6",
     "axios": "^1.4.0",
     "firebase": "^9.23.0",
     "framer-motion": "^10.12.17",
+    "lottie-react": "^2.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.13.0",
-    "sass": "^1.63.4"
+    "react-redux": "^8.1.3",
+    "react-router-dom": "^6.16.0",
+    "react-scrollable-feed": "^1.3.2",
+    "sass": "^1.63.4",
+    "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^4.0.0",
+    "dotenv": "^16.3.1",
     "eslint": "^8.38.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",

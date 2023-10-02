@@ -1,28 +1,39 @@
-import { useState } from "react";
-import { Registration } from "./pages/Registration";
-import "./style.scss";
-import { Login } from "./pages/Login";
-import Home from "./pages/Home";
+import React, { useLayoutEffect } from "react";
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import ChatPage from "./pages/ChatPage";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import { Button } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
+import { setUser } from "./redux/features/counter";
 
 function App() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // let userInfo = localStorage.getItem("userInfo");
+  // if (!userInfo) {
+  //   <Navigate to="/" />;
+  // } else {
+  //   dispatch(setUser(JSON.parse(userInfo)));
+  //   <Navigate to="/chats" />;
+  // }
+
   return (
+    // <Router>
     <div className="App">
       <Routes>
-        <Route path="/" Component={Login} />
-        <Route path="/register" Component={Registration} />
-        <Route path="/home" Component={Home} />
-
-        {/* <Route path='/'> */}
-        {/* <Route element={<Home/>} exact />
-         <Route path='/login' element={<Login />} />
-         <Route path='/register' element={<Registration />} /> */}
-        {/* </Route> */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/chats" element={<ChatPage />} />
       </Routes>
     </div>
+    // </Router>
   );
 }
 
