@@ -35,6 +35,7 @@ import {
   setNotifications,
 } from "../redux/features/counter";
 import { getSender } from "./methods/logics";
+import ScheduleChatModal from "./modals/ScheduleChatModal";
 
 const SideBar = ({ user }) => {
   const navigate = useNavigate();
@@ -203,6 +204,10 @@ const SideBar = ({ user }) => {
                 <ProfileModal
                   user={user}
                   childern={<MenuItem>Profile</MenuItem>}
+                />
+                <ScheduleChatModal
+                  user={user}
+                  children={<MenuItem>Schedule Message</MenuItem>}
                 />
                 <MenuDivider />
                 <MenuItem onClick={logoutFunc}>Logout</MenuItem>

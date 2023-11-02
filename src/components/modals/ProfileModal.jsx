@@ -50,13 +50,10 @@ const ProfileModal = ({ user, childern }) => {
             <Image
               borderRadius="full"
               boxSize="150px"
-              // src={
-              //   "https://cdn2.iconfinder.com/data/icons/business-hr-and-recruitment/100/account_blank_face_dummy_human_mannequin_profile_user_-512.png"
-              // }
               src={user.pic}
               alt={user.name}
             />
-            <Text>example@email.com</Text>
+            <Text>{user.email}</Text>
           </ModalBody>
 
           <ModalFooter>

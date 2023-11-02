@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/layout";
 import "./styles.css";
 import SingleChat from "./SingleChat";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Chatbox = ({ user, fetchAgain, setFetchAgain }) => {
   const { selectedChat } = useSelector((state) => state.counter);

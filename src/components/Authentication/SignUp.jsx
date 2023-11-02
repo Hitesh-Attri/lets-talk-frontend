@@ -30,6 +30,7 @@ const SignUp = () => {
   const [show, setShow] = useState(false);
 
   const [loading, setLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const postDetails = async () => {
     if (file == null) {
@@ -43,7 +44,7 @@ const SignUp = () => {
       data.append("folder", PIC_PATH);
 
       const res = await axios.post(PIC_UPLOAD_URL, data);
-      console.log(res.data.url);
+
       // setPicURL(res.data.url);
       picURL = res.data.url;
     } else {
@@ -54,14 +55,12 @@ const SignUp = () => {
         duration: 9000,
         isClosable: true,
       });
+
       return;
     }
   };
 
   const submitHandler = async () => {
-    setLoading(true);
-    await postDetails();
-
     if (!name || !email || !password) {
       toast({
         title: "Error",
@@ -74,6 +73,8 @@ const SignUp = () => {
     }
 
     try {
+      await postDetails();
+      setLoading(true);
       let res = await axios.post(`${BASE_URL}/api/user`, {
         name,
         email,
@@ -84,6 +85,9 @@ const SignUp = () => {
 
       localStorage.setItem("userInfo", JSON.stringify(res.data));
       setLoading(false);
+
+      setIsDisabled(true);
+
       toast({
         title: "Registration Successfull",
         description: "Please login to continue",
@@ -93,6 +97,15 @@ const SignUp = () => {
       });
     } catch (error) {
       console.log(error);
+      if (error.response.status === 409) {
+        toast({
+          title: "Registration Failed",
+          description: "User already exists with this email",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
       setLoading(false);
     }
   };
@@ -152,6 +165,7 @@ const SignUp = () => {
         width={"100%"}
         style={{ margin: 15 }}
         onClick={submitHandler}
+        // isDisabled={isDisabled}
       >
         Sign Up
       </Button>

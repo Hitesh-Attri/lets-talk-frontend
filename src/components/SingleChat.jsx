@@ -167,7 +167,7 @@ const SingleChat = ({ user, fetchAgain, setFetchAgain }) => {
         setMessages([...messages, newMessageRecived]);
       }
     });
-  });
+  }, []);
 
   return (
     <>

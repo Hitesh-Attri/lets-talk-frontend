@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedChat, setChats } from "../redux/features/counter";
-import { Box, Button, Stack, Text, useToast } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Stack,
+  Text,
+  VStack,
+  useToast,
+} from "@chakra-ui/react";
 import axios from "axios";
 import { BASE_URL } from "../../base";
 import { AddIcon } from "@chakra-ui/icons";
-import { getSender } from "./methods/logics";
+import { getSender, getSenderPic } from "./methods/logics";
 import GroupChatModal from "./modals/GroupChatModal";
+// import { Socket } from "socket.io-client";
+import io from "socket.io-client";
 
 const Mychats = ({ user, fetchAgain }) => {
   const toast = useToast();
@@ -14,6 +24,8 @@ const Mychats = ({ user, fetchAgain }) => {
   const { chats, selectedChat } = useSelector((state) => state.counter);
 
   const [loggedInUser, setLoggedInUser] = useState({});
+
+  const socket = io(BASE_URL);
 
   const getChats = async () => {
     try {
@@ -37,6 +49,18 @@ const Mychats = ({ user, fetchAgain }) => {
       });
     }
   };
+
+  useEffect(() => {
+    socket.emit("setup", user);
+    socket.on("connection", () => {
+      console.log("connected mychats");
+    });
+
+    socket.on("message received", (newMessage) => {
+      console.log(newMessage, "newMessage");
+      getChats();
+    });
+  }, []);
 
   useEffect(() => {
     setLoggedInUser(user);
@@ -87,32 +111,58 @@ const Mychats = ({ user, fetchAgain }) => {
       >
         {chats ? (
           <Stack overflowY="scroll">
-            {chats.map((chat) => (
-              <Box
-                onClick={() => dispatch(setSelectedChat(chat))}
-                cursor="pointer"
-                bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                color={selectedChat === chat ? "white" : "black"}
-                px={3}
-                py={2}
-                borderRadius="lg"
-                key={chat._id}
-              >
-                <Text>
-                  {!chat.isGroupChat
-                    ? getSender(loggedInUser, chat.users)
-                    : chat.chatName}
-                </Text>
-                {chat.latestMessage && (
-                  <Text fontSize="xs">
-                    <b>{chat.latestMessage.sender.name} : </b>
-                    {chat.latestMessage.content.length > 50
-                      ? chat.latestMessage.content.substring(0, 51) + "..."
-                      : chat.latestMessage.content}
-                  </Text>
-                )}
-              </Box>
-            ))}
+            {chats.map((chat) => {
+              console.log(getSenderPic(loggedInUser, chat.users), "asd");
+              return (
+                <Box
+                  onClick={() => dispatch(setSelectedChat(chat))}
+                  cursor="pointer"
+                  bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                  color={selectedChat === chat ? "white" : "black"}
+                  px={3}
+                  py={2}
+                  borderRadius="lg"
+                  key={chat._id}
+                  display={"flex"}
+                >
+                  {!chat.isGroupChat && (
+                    <Avatar
+                      size={"sm"}
+                      src={getSenderPic(loggedInUser, chat.users)}
+                      name={getSender(loggedInUser, chat.users)}
+                    />
+                  )}
+                  <Box ml={3}>
+                    <Text fontSize={{ base: "sm", md: "md" }} fontWeight={500}>
+                      {!chat.isGroupChat
+                        ? getSender(loggedInUser, chat.users)
+                        : chat.chatName}
+                    </Text>
+                    {chat.latestMessage && (
+                      <Text
+                        fontSize="xs"
+                        ml={1}
+                        color={
+                          chat.latestMessage.sender.name === loggedInUser.name
+                            ? "#38B2AC"
+                            : "black"
+                        }
+                      >
+                        <b>
+                          {chat.isGroupChat &&
+                          chat.latestMessage.sender.name !== loggedInUser.name
+                            ? chat.latestMessage.sender.name + ": "
+                            : ""}
+                        </b>
+                        {chat.latestMessage.content.length > 50
+                          ? chat.latestMessage.content.substring(0, 51) + "..."
+                          : chat.latestMessage.content}
+                      </Text>
+                    )}
+                  </Box>
+                </Box>
+              );
+            })}
           </Stack>
         ) : (
           <ChatLoading />

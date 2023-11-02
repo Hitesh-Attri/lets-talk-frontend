@@ -1,5 +1,11 @@
 export const getSender = (loggedInUser, users) => {
+  console.log(loggedInUser, "loggedin user");
+  console.log(users, "users");
   return users[0]._id === loggedInUser._id ? users[1].name : users[0].name;
+};
+export const getSenderPic = (loggedInUser, users) => {
+  console.log(users[1].pic, "users[1].pic");
+  return users[0]._id === loggedInUser._id ? users[1].pic : users[0].pic;
 };
 
 export const getSenderFull = (loggedInUser, users) => {
